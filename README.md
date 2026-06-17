@@ -1,6 +1,6 @@
 # tongflow-modal-qwen3asr
 
-Official TongFlow plugin. Speech recognition with **Qwen3-ASR** (`Qwen/Qwen3-ASR-1.7B`, plus `Qwen/Qwen3-ForcedAligner-0.6B` for word timing), running on a GPU via [Modal](https://modal.com).
+Official [TongFlow](https://github.com/tong-io/tongflow) plugin. Speech recognition with **Qwen3-ASR** (`Qwen/Qwen3-ASR-1.7B`, plus `Qwen/Qwen3-ForcedAligner-0.6B` for word timing), running on a GPU via [Modal](https://modal.com).
 
 ## Capabilities
 
