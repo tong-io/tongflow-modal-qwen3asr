@@ -1,4 +1,9 @@
 {
+    "plugin": {
+        "name": "Qwen3-ASR",
+        "description": "Speech recognition (with optional word timestamps) using Alibaba Qwen3-ASR.",
+        "icon": "/plugins/tongflow-modal-qwen3asr.svg"
+    },
     "env": [
         {
             "key": "MODAL_TOKEN_ID",
