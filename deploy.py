@@ -71,7 +71,7 @@ image = (
     modal.Image.from_registry("pytorch/pytorch:2.5.1-cuda12.4-cudnn9-devel")
     .apt_install("ffmpeg", "sox", "libsox-dev")
     .pip_install(
-        "tongflow==0.1.0",
+        "tongflow==0.2.13", "fastapi[standard]",
         "qwen-asr==0.0.6",
         "transformers==4.57.6",
         "accelerate==1.12.0",
@@ -244,6 +244,21 @@ class Transcribe:
         )
         return TranscribeOutput(success=True, text=str(out.get("text") or ""))
 
+    @modal.fastapi_endpoint(method="GET", label=f"{Path(__file__).resolve().parent.name}-transcribe-serve")
+    def serve(self, taskId: str = "", token: str = "", origin: str = ""):
+        from fastapi.responses import StreamingResponse
+        from tongflow import serve_stream_from_spec
+
+        return StreamingResponse(
+            serve_stream_from_spec(
+                origin, taskId, token, __file__,
+                invoke=lambda m, inp: getattr(self, m).local(inp),
+            ),
+            media_type="text/event-stream",
+            headers={"Cache-Control": "no-cache", "Access-Control-Allow-Origin": "*"},
+        )
+
+
 
 @deploy
 @app.cls(
@@ -346,3 +361,18 @@ class TranscribeWithTimestamps:
             text=str(out.get("text") or ""),
             time_stamps=time_stamps,
         )
+
+    @modal.fastapi_endpoint(method="GET", label=f"{Path(__file__).resolve().parent.name}-transcribewithtimestamps-serve")
+    def serve(self, taskId: str = "", token: str = "", origin: str = ""):
+        from fastapi.responses import StreamingResponse
+        from tongflow import serve_stream_from_spec
+
+        return StreamingResponse(
+            serve_stream_from_spec(
+                origin, taskId, token, __file__,
+                invoke=lambda m, inp: getattr(self, m).local(inp),
+            ),
+            media_type="text/event-stream",
+            headers={"Cache-Control": "no-cache", "Access-Control-Allow-Origin": "*"},
+        )
+
