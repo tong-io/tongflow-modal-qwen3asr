@@ -71,7 +71,7 @@ image = (
     modal.Image.from_registry("pytorch/pytorch:2.5.1-cuda12.4-cudnn9-devel")
     .apt_install("ffmpeg", "sox", "libsox-dev")
     .pip_install(
-        "tongflow==0.2.16", "fastapi[standard]",
+        "tongflow==0.2.20", "fastapi[standard]",
         "qwen-asr==0.0.6",
         "transformers==4.57.6",
         "accelerate==1.12.0",
