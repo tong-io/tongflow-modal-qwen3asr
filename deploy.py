@@ -168,7 +168,7 @@ def _align_result_to_list(result):
 
 @deploy
 @app.cls(
-    scaledown_window=5,
+    scaledown_window=2,
     image=image,
     gpu="L4",
     volumes={"/models": volume},
@@ -262,7 +262,7 @@ class Transcribe:
 
 @deploy
 @app.cls(
-    scaledown_window=5,
+    scaledown_window=2,
     image=image,
     gpu="L4",
     volumes={"/models": volume},
